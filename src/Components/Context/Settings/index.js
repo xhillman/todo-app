@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export const SettingsContext = React.createContext();
 
 function SettingsProvider({children}) {
 
+  const [maxItems, setMaxItems] = useState(3);
+  const [showCompleted, setShowCompleted] = useState(false);
+  const [sort, setSort] = useState('difficulty');
+
   const settings = {
-    maxItems: 3,
-    completed: false,
+    maxItems,
+    showCompleted,
+    sort,
+    setMaxItems,
+    setShowCompleted,
+    setSort,
   }
 
   return(

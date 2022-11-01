@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Form from './Components/Form';
+import Nav from './Components/Nav';
 import Header from './Components/Header';
 import List from './Components/List'
 import useForm from '../src/hooks/form';
 import { v4 as uuid } from 'uuid';
 import { SettingsContext } from './Components/Context/Settings';
+import { Grid } from '@mantine/core';
 
 function App() {
-  
+
   const [defaultValues] = useState({
     difficulty: 75,
   });
@@ -24,14 +26,14 @@ function App() {
   }
 
   function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
+    const items = list.filter(item => item.id !== id);
     setList(items);
   }
 
   function toggleComplete(id) {
-    const items = list.map( item => {
-      if ( item.id === id ) {
-        item.complete = ! item.complete;
+    const items = list.map(item => {
+      if (item.id === id) {
+        item.complete = !item.complete;
       }
       return item;
     });
@@ -49,11 +51,18 @@ function App() {
 
   return (
     <>
-      <Header incomplete={incomplete}/>
-      <Form handleChange={handleChange} 
+      <Nav />
+      <Header incomplete={incomplete} />
+      <Grid>
+        <Grid.Col span={4}>
+          <Form handleChange={handleChange}
             handleSubmit={handleSubmit}
-            defaultValues={defaultValues}/>
-      <List list={list} toggleComplete={toggleComplete}/>
+            defaultValues={defaultValues} />
+        </Grid.Col>
+        <Grid.Col span={8}>
+          <List list={list} toggleComplete={toggleComplete} />
+        </Grid.Col>
+      </Grid>
     </>
   );
 }
