@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Form from './Components/Form';
 import Header from './Components/Header';
-import ToDos from './Components/ToDos'
+import List from './Components/List'
 import useForm from '../src/hooks/form';
 import { v4 as uuid } from 'uuid';
 import { SettingsContext } from './Components/Context/Settings';
 
 function App() {
-
-  const {maxItems, completed} = useContext(SettingsContext);
   
   const [defaultValues] = useState({
-    difficulty: 4,
+    difficulty: 75,
   });
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+  const { completed } = useContext(SettingsContext);
 
   function addItem(item) {
     item.id = uuid();
-    item.complete = false;
+    item.complete = completed;
     console.log(item);
     setList([...list, item]);
   }
@@ -54,7 +53,7 @@ function App() {
       <Form handleChange={handleChange} 
             handleSubmit={handleSubmit}
             defaultValues={defaultValues}/>
-      <ToDos list={list} toggleComplete={toggleComplete}/>
+      <List list={list} toggleComplete={toggleComplete}/>
     </>
   );
 }

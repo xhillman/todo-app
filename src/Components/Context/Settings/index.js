@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const SettingsContext = React.createContext();
 
@@ -6,7 +6,7 @@ function SettingsProvider({children}) {
 
   const settings = {
     maxItems: 3,
-    completed: true,
+    completed: false,
   }
 
   return(

@@ -1,3 +1,4 @@
+import {Title} from '@mantine/core';
 
 function Header(props) {
 
@@ -5,7 +6,7 @@ function Header(props) {
 
   return (
     <header data-testid="todo-header">
-      <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
+      <Title data-testid="todo-h1" order={1}>To Do List: {incomplete} items pending</Title>
     </header>
   )
 }
