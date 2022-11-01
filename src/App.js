@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useContext } from 'react';
+import Form from './Components/Form';
+import Header from './Components/Header';
+import List from './Components/List'
+import useForm from '../src/hooks/form';
+import { v4 as uuid } from 'uuid';
+import { SettingsContext } from './Components/Context/Settings';
 
 function App() {
+  
+  const [defaultValues] = useState({
+    difficulty: 75,
+  });
+  const [list, setList] = useState([]);
+  const [incomplete, setIncomplete] = useState([]);
+  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+  const { completed } = useContext(SettingsContext);
+
+  function addItem(item) {
+    item.id = uuid();
+    item.complete = completed;
+    console.log(item);
+    setList([...list, item]);
+  }
+
+  function deleteItem(id) {
+    const items = list.filter( item => item.id !== id );
+    setList(items);
+  }
+
+  function toggleComplete(id) {
+    const items = list.map( item => {
+      if ( item.id === id ) {
+        item.complete = ! item.complete;
+      }
+      return item;
+    });
+    setList(items);
+  }
+
+  useEffect(() => {
+    let incompleteCount = list.filter(item => !item.complete).length;
+    setIncomplete(incompleteCount);
+    document.title = `To Do List: ${incomplete}`;
+    // linter will want 'incomplete' added to dependency array unnecessarily. 
+    // disable code used to avoid linter warning 
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, [list]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header incomplete={incomplete}/>
+      <Form handleChange={handleChange} 
+            handleSubmit={handleSubmit}
+            defaultValues={defaultValues}/>
+      <List list={list} toggleComplete={toggleComplete}/>
+    </>
   );
 }
 
