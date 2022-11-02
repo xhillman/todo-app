@@ -1,34 +1,36 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Form from './Components/Form';
-import Nav from './Components/Nav';
+import React, { useState, useEffect } from 'react';
 import Header from './Components/Header';
-import List from './Components/List'
-import useForm from '../src/hooks/form';
 import { v4 as uuid } from 'uuid';
-import { SettingsContext } from './Components/Context/Settings';
-import { Grid } from '@mantine/core';
+import { Routes, Route } from 'react-router-dom';
+import Settings from './Components/Settings';
+import Home from './Components/Home';
 
 function App() {
 
-  const [defaultValues] = useState({
-    difficulty: 75,
-  });
+  
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
-  const { completed } = useContext(SettingsContext);
+
+  let storedList = JSON.parse(localStorage.getItem('list'));
+
+  useEffect(() => {
+    if(storedList) {
+      setList(storedList);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function addItem(item) {
     item.id = uuid();
-    item.complete = completed;
-    console.log(item);
+    item.complete = false;
     setList([...list, item]);
+    localStorage.setItem('list', JSON.stringify(list));
   }
 
-  function deleteItem(id) {
-    const items = list.filter(item => item.id !== id);
-    setList(items);
-  }
+  // function deleteItem(id) {
+  //   const items = list.filter(item => item.id !== id);
+  //   setList(items);
+  // }
 
   function toggleComplete(id) {
     const items = list.map(item => {
@@ -38,6 +40,7 @@ function App() {
       return item;
     });
     setList(items);
+    localStorage.setItem('list', JSON.stringify(list));
   }
 
   useEffect(() => {
@@ -51,18 +54,15 @@ function App() {
 
   return (
     <>
-      <Nav />
       <Header incomplete={incomplete} />
-      <Grid>
-        <Grid.Col span={4}>
-          <Form handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            defaultValues={defaultValues} />
-        </Grid.Col>
-        <Grid.Col span={8}>
-          <List list={list} toggleComplete={toggleComplete} />
-        </Grid.Col>
-      </Grid>
+      <Routes>
+        <Route path="/" 
+               element={<Home addItem={addItem}
+                              toggleComplete={toggleComplete} 
+                              list={list} />} 
+                              />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
     </>
   );
 }

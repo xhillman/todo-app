@@ -29,7 +29,7 @@ const ToDo = (props) => {
         <Divider my="sm" />
         <Group position="apart" mb="xs">
           <Text size="lg" color="default">{item.text}</Text>
-          <Text size="xs" mt='xl' color="default">Difficulty: 4</Text>
+          <Text size="xs" mt='xl' color="default">Difficulty: {item.difficulty}</Text>
         </Group>
       </Card>
     </>

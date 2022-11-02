@@ -4,14 +4,6 @@ function Form(props) {
 
   const { handleChange, handleSubmit, defaultValues } = props;
 
-  const MARKS = [
-    { value: 0, label: '1' },
-    { value: 25, label: '2' },
-    { value: 50, label: '3' },
-    { value: 75, label: '4' },
-    { value: 100, label: '5' },
-  ];
-
   return (
     <form onSubmit={handleSubmit}>
 
@@ -35,11 +27,11 @@ function Form(props) {
         />
         <Text size="md">Difficulty</Text>
         <Slider
-        label={(val) => MARKS.find((mark) => mark.value === val).label}
+        label={null}
+        min={0}
+        max={5}
+        step={1}
         defaultValue={defaultValues.difficulty}
-        step={25}
-        styles={{ markLabel: { display: 'none' } }}
-        type="range"
         name="difficulty"
         onChange={handleChange}
         />
