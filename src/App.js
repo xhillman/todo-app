@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import Header from './Components/Header';
 import { v4 as uuid } from 'uuid';
 import { Routes, Route } from 'react-router-dom';
@@ -7,7 +7,6 @@ import Home from './Components/Home';
 
 function App() {
 
-  
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
 
@@ -52,6 +51,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [list]);
 
+  
   return (
     <>
       <Header incomplete={incomplete} />

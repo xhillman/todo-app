@@ -1,6 +1,7 @@
 import { Title } from '@mantine/core';
 import { Header, Navbar, createStyles } from "@mantine/core";
 import { Link } from 'react-router-dom';
+import Login from '../Login';
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -33,6 +34,7 @@ function AppHeader(props) {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/settings">Settings</Link></li>
         </ul>
+        <Login />
       </Navbar>
       <Title data-testid="todo-h1" order={1} className={classes.h1}>To Do List: {incomplete} items pending</Title>
     </Header>

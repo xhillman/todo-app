@@ -2,11 +2,15 @@ import { Grid } from '@mantine/core';
 import Form from '../Form/';
 import List from '../List';
 import useForm from '../../hooks/form';
-import { useState } from 'react';
-
+import { useState, useContext } from 'react';
+import { When } from 'react-if';
+import { AuthContext } from '../Context/Auth';
+import Access from '../Access';
 
 
 function Home(props) {
+
+  const { loggedIn } = useContext(AuthContext);
 
   const { addItem, toggleComplete, list } = props;
 
@@ -18,16 +22,23 @@ function Home(props) {
 
   return (
     <>
-      <Grid>
-        <Grid.Col span={4}>
-          <Form handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            defaultValues={defaultValues} />
-        </Grid.Col>
-        <Grid.Col span={8}>
-          <List list={list} toggleComplete={toggleComplete} />
-        </Grid.Col>
-      </Grid>
+      <When condition={loggedIn}>
+        <Grid>
+          <Grid.Col span={4}>
+            <Access capability="create">
+
+            <Form handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              defaultValues={defaultValues} />
+            </Access>
+          </Grid.Col>
+          <Grid.Col span={8}>
+            <Access capability="read">
+              <List list={list} toggleComplete={toggleComplete} />
+            </Access>
+          </Grid.Col>
+        </Grid>
+      </When>
     </>
   )
 }

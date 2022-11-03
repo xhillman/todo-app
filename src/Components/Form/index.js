@@ -35,9 +35,6 @@ function Form(props) {
         name="difficulty"
         onChange={handleChange}
         />
-        {/* <label>
-          <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
-        </label> */}
         <Button type="submit">
           Add Item
         </Button>
