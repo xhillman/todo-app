@@ -5,8 +5,6 @@ import { Box, Text, Switch, NumberInput, TextInput, Button } from '@mantine/core
 import { SettingsContext } from '../Context/Settings';
 import { When } from 'react-if';
 
-
-
 function Settings() {
 
   const { showCompleted, 
@@ -24,6 +22,7 @@ function Settings() {
 
   const handleSwitch = () => {
     setChecked(!checked);
+    setShowCompleted(!showCompleted);
   };
 
   const handlePageChange = (event) => {
@@ -35,6 +34,11 @@ function Settings() {
   };
 
   const handleSave = () => {
+    setShow(!show);
+    setChecked(checked);
+    setMaxItems(perPage);
+    setSort(sortKeyword);
+    setShowCompleted(showCompleted);
     let settings = {
       showCompleted,
       perPage,
@@ -42,11 +46,6 @@ function Settings() {
       checked,
     }
     localStorage.setItem('settings', JSON.stringify(settings));
-    setShow(true);
-    setChecked(checked);
-    setMaxItems(perPage);
-    setSort(sortKeyword);
-    setShowCompleted(checked);
   };
 
   return (

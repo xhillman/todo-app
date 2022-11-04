@@ -1,4 +1,4 @@
-import { TextInput, Button, Text, Container, Title, Slider } from '@mantine/core';
+import { TextInput, Button, Text, Card, Title, Slider } from '@mantine/core';
 
 function Form(props) {
 
@@ -7,13 +7,14 @@ function Form(props) {
   return (
     <form onSubmit={handleSubmit}>
 
-      <Container size={300} px="xs">
-        <Title order={2}>Add To Do Item</Title>
+      <Card m="sm" size={300} px="xs" withBorder>
+        <Title m="xs" order={2}>Add To Do Item</Title>
 
         <TextInput
           placeholder="Item Details"
           label="To Do Item"
           size="md"
+          m="sm"
           name="text"
           onChange={handleChange}
         />
@@ -22,11 +23,13 @@ function Form(props) {
           placeholder="Assignee Name"
           label="Assigned To"
           size="md"
+          m="sm"
           name="assignee"
           onChange={handleChange}
         />
-        <Text size="md">Difficulty</Text>
+        <Text size="md" m="sm">Difficulty</Text>
         <Slider
+        m="sm"
         label={null}
         min={0}
         max={5}
@@ -35,10 +38,10 @@ function Form(props) {
         name="difficulty"
         onChange={handleChange}
         />
-        <Button type="submit">
+        <Button m="xs" type="submit">
           Add Item
         </Button>
-      </Container>
+      </Card>
     </form>
   )
 }
