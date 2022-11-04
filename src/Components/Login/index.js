@@ -36,24 +36,22 @@ const Login = () => {
 
   return (
     <>
-      <TextInput
-        placeholder="Username"
-        label="Username"
-        onChange={handleUsernameChange}
-      />
-      <TextInput
-        placeholder="Password"
-        label="Password"
-        onChange={handlePasswordChange}
-      />
-      <When condition={loggedIn}>
-        <Button type="button" onClick={handleLogout}>
-          Logout
+      <When condition={!loggedIn}>
+        <TextInput
+          placeholder="Username"
+          onChange={handleUsernameChange}
+        />
+        <TextInput
+          placeholder="Password"
+          onChange={handlePasswordChange}
+        />
+        <Button type="button" color="dark" onClick={handleLogin}>
+          Login
         </Button>
       </When>
-      <When condition={!loggedIn}>
-        <Button type="button" onClick={handleLogin}>
-          Login
+      <When condition={loggedIn}>
+        <Button type="button" color="red" onClick={handleLogout}>
+          Logout
         </Button>
       </When>
     </>

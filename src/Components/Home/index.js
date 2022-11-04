@@ -11,9 +11,11 @@ import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
   home: {
+    display: 'flex', 
+    justifyContent: 'center',
     width: '80%',
     margin: 'auto',
-    padding: theme.spacing.md,
+    padding: theme.spacing.sm,
     marginTop: theme.spacing.md,
     marginBottom: theme.spacing.md,
   },
@@ -111,15 +113,15 @@ async function deleteItem(id) {
     <>
       <When condition={loggedIn}>
         <div className={classes.home}>
-          <Grid>
-            <Grid.Col span={4}>
+          <Grid style={{width: "80%"}}>
+            <Grid.Col span={4}  xs={12} sm={4} >
               <Access capability="create">
                 <Form handleChange={handleChange}
                   handleSubmit={handleSubmit}
                   defaultValues={defaultValues} />
               </Access>
             </Grid.Col>
-            <Grid.Col span={8}>
+            <Grid.Col span={8} xs={12} sm={8} >
               <Access capability="read">
                 <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
               </Access>

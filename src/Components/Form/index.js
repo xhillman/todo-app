@@ -8,7 +8,7 @@ function Form(props) {
     <form onSubmit={handleSubmit}>
 
       <Card m="sm" size={300} px="xs" withBorder>
-        <Title m="xs" order={2}>Add To Do Item</Title>
+        <Title m="sm" order={4}>Add To Do Item</Title>
 
         <TextInput
           placeholder="Item Details"
