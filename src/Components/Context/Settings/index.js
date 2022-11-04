@@ -23,7 +23,11 @@ function SettingsProvider({children}) {
   useEffect(() => {
     let settings = JSON.parse(localStorage.getItem('settings'));
     console.log('Settings', settings);
-  });
+    setMaxItems(settings.perPage);
+    setShowCompleted(settings.showCompleted);
+    setSort(settings.sort);
+    setChecked(settings.checked);
+  }, []);
 
   return(
     <SettingsContext.Provider value={settings}>

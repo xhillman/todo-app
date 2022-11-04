@@ -7,7 +7,7 @@ const Login = () => {
 
   const {
     loggedIn,
-    user,
+    // user,
     // token,
     // error,
     login,
@@ -56,8 +56,6 @@ const Login = () => {
           Login
         </Button>
       </When>
-
-      <div>user: {JSON.stringify(user)}</div>
     </>
   )
 }
